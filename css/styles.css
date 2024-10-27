@@ -171,7 +171,7 @@ html {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #E0E0E0;
+    border: 1px solid var(--light-gray);
 }
 
 .about-item:hover {
@@ -195,7 +195,8 @@ html {
     background-color: var(--secondary-light-gray);
     padding: 30px;
     border-radius: 8px;
-    margin-bottom: 30px;
+    margin: 30px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
@@ -212,13 +213,18 @@ html {
 }
 
 .cta {
-    background-color: var(--medium-blue);
+    background-color: var(--ocean-blue);
     color: #FFFFFF;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    text-decoration: none;
     transition: background-color 0.3s ease;
 }
 
 .cta:hover {
-    background-color: var(--ocean-blue);
+    background-color: var(--medium-blue);
+    text-decoration: none;
 }
 
 /* Down Arrow Animation */
@@ -302,9 +308,11 @@ html {
 a {
     color: var(--bright-blue);
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 a:hover {
+    color: var(--ocean-blue);
     text-decoration: underline;
 }
 
@@ -322,4 +330,12 @@ a:hover {
         font-size: 1.2rem; /* Slightly smaller font for mobile */
         line-height: 1.4; /* Better line height for readability */
     }
+}
+
+.top-menu ul {
+    background: linear-gradient(to right, #FFFFFF, #CCCCCC);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
 }

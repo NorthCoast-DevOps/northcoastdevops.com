@@ -51,8 +51,54 @@ Icons and Links
 	•	Icon Color: #1DA1DB (Ocean Blue) – Consistent with button color, for a unified look.
 	•	Link Color: #FF914D (Sunrise Orange) – Stand-out color for links, matching the warm, inviting tones of your brand.
 
+Animations
+
+1. Landing Page Content
+   • Fade In: 1.5s ease-in
+   • Transform: translateY(20px) to 0
+
+2. Scroll Arrows
+   • Down Arrow: fadeInAndBounce animation (3s infinite)
+   • Up Arrow: pulse animation (2s infinite)
+
+UI Components
+
+1. Cards
+   • Background: White
+   • Border: 1px solid var(--light-gray)
+   • Border Radius: 8px
+   • Box Shadow: 0 4px 6px rgba(0, 0, 0, 0.1)
+   • Hover: translateY(-5px) with increased shadow
+
+2. Buttons
+   • Background: var(--ocean-blue)
+   • Hover: var(--medium-blue)
+   • Text: White
+   • Padding: 12px 24px
+   • Border Radius: 6px
+
+3. Navigation
+   • Background: rgba(29, 29, 31, 0.8)
+   • Text: Linear gradient from white to light gray
+   • Hover: var(--bright-blue)
+
+4. Feature Callouts
+   • Background: var(--secondary-light-gray)
+   • Border Radius: 8px
+   • Box Shadow: 0 4px 6px rgba(0, 0, 0, 0.1)
+   • Padding: 30px
+
+Responsive Design
+   • Mobile Breakpoint: 768px
+   • Height Breakpoint: 400px (scroll arrows)
+   • Mobile Typography Scale:
+     - h1: 2.5rem
+     - h2: 2rem
+     - h3: 1.3rem
+     - Body: 1rem
+     - Lead: 1.1rem
+
 Additional Notes
 
 	•	Button Hover Effects: Lighten the primary and secondary button colors slightly on hover for a tactile feel. Example: #47B1E8 for Ocean Blue and #FFAA73 for Sunrise Orange.
 	•	Gray Overlay: When using background images, apply a #808080 overlay with 50% opacity to ensure that text over the images remains legible.
-
