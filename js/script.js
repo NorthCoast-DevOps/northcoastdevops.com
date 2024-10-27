@@ -80,6 +80,9 @@ function scrollToTop() {
 
 // Function to update arrows visibility
 function updateArrowsVisibility() {
+    // Only proceed if DOM elements are initialized
+    if (!sections || !scrollUpArrow || !scrollDownArrow) return;
+
     let scrollPosition = window.pageYOffset;
     let windowHeight = window.innerHeight;
     let currentSectionIndex = Math.floor(scrollPosition / windowHeight);
@@ -105,42 +108,48 @@ function updateArrowsVisibility() {
 
 // Single initialization function
 function initializePage() {
+    // Initialize DOM elements first
+    scrollUpArrow = document.querySelector('.scroll-up-arrow');
+    scrollDownArrow = document.querySelector('.scroll-arrow');
+    sections = document.querySelectorAll('.parallax, .section');
+
     const storedIndex = sessionStorage.getItem('lastImageIndex');
     if (storedIndex !== null) {
         currentImageIndex = parseInt(storedIndex, 10);
     }
     setRandomBackgroundImage();
     scrollToTop();
+    
+    // Only call updateArrowsVisibility after DOM elements are initialized
+    updateArrowsVisibility();
 }
 
 // Consolidated event listeners
 document.addEventListener('DOMContentLoaded', (event) => {
-    // Initialize global DOM element references
-    scrollUpArrow = document.querySelector('.scroll-up-arrow');
-    scrollDownArrow = document.querySelector('.scroll-arrow');
-    sections = document.querySelectorAll('.parallax, .section');
-
     initializePage();
-    updateArrowsVisibility();
 
     // Add scroll event listener for arrow visibility
     window.addEventListener('scroll', updateArrowsVisibility);
     window.addEventListener('resize', updateArrowsVisibility);
 
     // Add click handlers for arrows
-    scrollUpArrow.addEventListener('click', () => {
-        let currentSectionIndex = Math.floor(window.pageYOffset / window.innerHeight);
-        if (currentSectionIndex > 0) {
-            sections[currentSectionIndex - 1].scrollIntoView({ behavior: 'smooth' });
-        }
-    });
+    if (scrollUpArrow) {
+        scrollUpArrow.addEventListener('click', () => {
+            let currentSectionIndex = Math.floor(window.pageYOffset / window.innerHeight);
+            if (currentSectionIndex > 0) {
+                sections[currentSectionIndex - 1].scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
 
-    scrollDownArrow.addEventListener('click', () => {
-        let currentSectionIndex = Math.floor(window.pageYOffset / window.innerHeight);
-        if (currentSectionIndex < sections.length - 1) {
-            sections[currentSectionIndex + 1].scrollIntoView({ behavior: 'smooth' });
-        }
-    });
+    if (scrollDownArrow) {
+        scrollDownArrow.addEventListener('click', () => {
+            let currentSectionIndex = Math.floor(window.pageYOffset / window.innerHeight);
+            if (currentSectionIndex < sections.length - 1) {
+                sections[currentSectionIndex + 1].scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
 
     // Store current index before unload
     window.addEventListener('beforeunload', () => {
