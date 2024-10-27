@@ -307,3 +307,19 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+/* Add responsive handling for the tagline */
+.tagline-break {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .tagline-break {
+        display: block;
+    }
+    
+    #landing .content p {
+        font-size: 1.2rem; /* Slightly smaller font for mobile */
+        line-height: 1.4; /* Better line height for readability */
+    }
+}
