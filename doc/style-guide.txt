@@ -1,0 +1,58 @@
+Color Palette
+
+	1.	Light Gray: #f0f0f0
+	•	Usage: Primary background color.
+	•	Description: Clean and neutral, providing a fresh canvas for content.
+	2.	Dark Gray: #424245
+	•	Usage: Primary text color.
+	•	Description: Softer than pure black, offering good readability while reducing eye strain.
+	3.	Almost Black: #1d1d1f
+	•	Usage: Header text color.
+	•	Description: Provides strong contrast for headings, enhancing visual hierarchy.
+	4.	Ocean Blue: #3498db
+	•	Usage: Primary button color and accents.
+	•	Description: Vibrant and engaging, drawing attention to interactive elements.
+	5.	Medium Blue: #2980b9
+	•	Usage: Button hover color.
+	•	Description: Slightly darker shade of Ocean Blue, providing visual feedback for user interactions.
+	6.	Light Gray: #ecf0f1
+	•	Usage: Secondary background color (e.g., for feature callouts).
+	•	Description: Subtle contrast from the primary background, useful for highlighting specific content areas.
+	7.	Bright Blue: #00a8ff
+	•	Usage: Link color and hover effects.
+	•	Description: Distinctive color for hyperlinks, ensuring they stand out from regular text.
+
+Style Guide
+
+Backgrounds
+
+	���	Primary Background: #f0f0f0 (Light Gray) – Clean and neutral base for content.
+	•	Secondary Background: #ecf0f1 (Light Gray) – Subtle contrast for feature sections or callouts.
+
+Text Colors
+
+	•	Primary Text: #424245 (Dark Gray) – Main body text color, offering good readability.
+	•	Header Text: #1d1d1f (Almost Black) – For headings, providing clear visual hierarchy.
+	•	Link Text: #00a8ff (Bright Blue) – Distinctive color for hyperlinks.
+
+Buttons
+
+	•	Primary Button: #3498db (Ocean Blue) – Used for main call-to-action buttons.
+	•	Button Hover: #2980b9 (Medium Blue) – Color change on hover for interactive feedback.
+	•	Button Text: White (#FFFFFF) – Ensures readability over button colors.
+
+Borders and Dividers
+
+	•	Light Border: #E0E0E0 – Subtle dividers or borders in sections to add structure without being visually heavy.
+	•	Dark Border: #2A2E35 (Dark Navy) – Used sparingly, such as around images or key content blocks.
+
+Icons and Links
+
+	•	Icon Color: #1DA1DB (Ocean Blue) – Consistent with button color, for a unified look.
+	•	Link Color: #FF914D (Sunrise Orange) – Stand-out color for links, matching the warm, inviting tones of your brand.
+
+Additional Notes
+
+	•	Button Hover Effects: Lighten the primary and secondary button colors slightly on hover for a tactile feel. Example: #47B1E8 for Ocean Blue and #FFAA73 for Sunrise Orange.
+	•	Gray Overlay: When using background images, apply a #808080 overlay with 50% opacity to ensure that text over the images remains legible.
+
