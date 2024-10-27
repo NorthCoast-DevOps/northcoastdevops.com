@@ -349,3 +349,79 @@ a:hover {
     -webkit-text-fill-color: transparent;
     color: transparent;
 }
+
+/* Add services section specific styling */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    margin: 40px auto;
+    max-width: 90%;
+    width: 1400px;
+}
+
+.service-category {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--light-gray);
+    padding: 30px;
+}
+
+.service-category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.service-category h3 {
+    font-size: 1.8rem;
+    color: var(--almost-black);
+    margin-bottom: 20px;
+}
+
+.service-intro {
+    font-size: 1.2rem;
+    color: var(--dark-gray);
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.service-outro {
+    font-size: 1.1rem;
+    color: var(--dark-gray);
+    margin-top: auto;
+    padding-top: 20px;
+}
+
+.services-subtitle {
+    font-size: 1.4rem;
+    color: var(--dark-gray);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Mobile responsiveness per style guide */
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin: 30px 0;
+        width: 95%;
+    }
+
+    .service-category h3 {
+        font-size: 1.3rem;
+    }
+
+    .service-intro {
+        font-size: 1rem;
+    }
+
+    .service-outro {
+        font-size: 1rem;
+    }
+}
