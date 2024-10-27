@@ -1,8 +1,8 @@
 // Array of background images
 const backgroundImages = [
-    'bg-1.png',
-    'bg-2.png',
-    'bg-3.png'
+    'bg-1.jpg',
+    'bg-2.jpg',
+    'bg-3.jpg'
 ];
 
 let lastUsedImageIndex = -1;
