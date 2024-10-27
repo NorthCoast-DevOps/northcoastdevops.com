@@ -50,6 +50,36 @@ function setRandomBackgroundImage() {
     img.src = imagePath;
 }
 
+// Function to scroll to top
+function scrollToTop() {
+    window.scrollTo(0, 0);
+}
+
+// Function to update arrows visibility
+function updateArrowsVisibility() {
+    let scrollPosition = window.pageYOffset;
+    let windowHeight = window.innerHeight;
+    let currentSectionIndex = Math.floor(scrollPosition / windowHeight);
+
+    // Show down arrow when there's a next frame
+    if (currentSectionIndex < sections.length - 1) {
+        scrollDownArrow.style.display = 'block';
+        scrollDownArrow.style.opacity = '1';
+    } else {
+        scrollDownArrow.style.opacity = '0';
+        setTimeout(() => {
+            scrollDownArrow.style.display = 'none';
+        }, 300);
+    }
+
+    // Show up arrow when not at the first frame
+    if (currentSectionIndex > 0) {
+        scrollUpArrow.classList.add('visible');
+    } else {
+        scrollUpArrow.classList.remove('visible');
+    }
+}
+
 // Single initialization function
 function initializePage() {
     const storedIndex = sessionStorage.getItem('lastImageIndex');
@@ -68,6 +98,25 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     initializePage();
     updateArrowsVisibility();
+
+    // Add scroll event listener for arrow visibility
+    window.addEventListener('scroll', updateArrowsVisibility);
+    window.addEventListener('resize', updateArrowsVisibility);
+
+    // Add click handlers for arrows
+    scrollUpArrow.addEventListener('click', () => {
+        let currentSectionIndex = Math.floor(window.pageYOffset / window.innerHeight);
+        if (currentSectionIndex > 0) {
+            sections[currentSectionIndex - 1].scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+
+    scrollDownArrow.addEventListener('click', () => {
+        let currentSectionIndex = Math.floor(window.pageYOffset / window.innerHeight);
+        if (currentSectionIndex < sections.length - 1) {
+            sections[currentSectionIndex + 1].scrollIntoView({ behavior: 'smooth' });
+        }
+    });
 
     // Store current index before unload
     window.addEventListener('beforeunload', () => {
