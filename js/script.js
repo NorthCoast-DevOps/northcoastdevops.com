@@ -8,10 +8,10 @@ const backgroundImages = [
 ];
 
 let currentImageIndex = -1;
+let isLoadingImage = false; // Add a flag to prevent multiple simultaneous loads
 
 // Function to get a new random index different from the current one
 function getNewRandomIndex(currentIndex, arrayLength) {
-    // Get the last used index from session storage
     const lastUsedIndex = sessionStorage.getItem('lastImageIndex');
     const previousIndex = lastUsedIndex !== null ? parseInt(lastUsedIndex, 10) : currentIndex;
     
@@ -24,59 +24,55 @@ function getNewRandomIndex(currentIndex, arrayLength) {
 
 // Function to preload image and set as background only after loading
 function setRandomBackgroundImage() {
+    // Prevent multiple simultaneous loads
+    if (isLoadingImage) return;
+    
     const landingElement = document.getElementById('landing');
     if (!landingElement || backgroundImages.length === 0) return;
 
+    isLoadingImage = true;
+    
     const newIndex = getNewRandomIndex(currentImageIndex, backgroundImages.length);
     const imagePath = `./img/bg-landing/${backgroundImages[newIndex]}`;
     
-    // Create new image object to preload
     const img = new Image();
     img.onload = function() {
         landingElement.style.backgroundImage = `url('${imagePath}')`;
         currentImageIndex = newIndex;
-        // Store the current index immediately after setting it
         sessionStorage.setItem('lastImageIndex', newIndex.toString());
+        isLoadingImage = false;
     };
     img.onerror = function() {
         console.error('Failed to load image:', imagePath);
-        // Try to load the first image as a fallback
         landingElement.style.backgroundImage = `url('./img/bg-landing/${backgroundImages[0]}')`;
+        isLoadingImage = false;
     };
     img.src = imagePath;
 }
 
-// Function to scroll to top
-function scrollToTop() {
-    window.scrollTo(0, 0);
-}
-
-document.addEventListener('DOMContentLoaded', (event) => {
-    const scrollUpArrow = document.querySelector('.scroll-up-arrow');
-    const scrollDownArrow = document.querySelector('.scroll-arrow');
-    const sections = document.querySelectorAll('.parallax, .section');
-
-    // ... (rest of your existing code) ...
-
-    // Initial setup
-    setRandomBackgroundImage();
-    scrollToTop();
-    updateArrowsVisibility();
-
-    // Reload behavior
-    window.addEventListener('beforeunload', () => {
-        sessionStorage.setItem('lastImageIndex', currentImageIndex.toString());
-    });
-});
-
-// Set random background on page load
-window.addEventListener('load', () => {
+// Single initialization function
+function initializePage() {
     const storedIndex = sessionStorage.getItem('lastImageIndex');
     if (storedIndex !== null) {
         currentImageIndex = parseInt(storedIndex, 10);
     }
     setRandomBackgroundImage();
     scrollToTop();
+}
+
+// Consolidated event listeners
+document.addEventListener('DOMContentLoaded', (event) => {
+    const scrollUpArrow = document.querySelector('.scroll-up-arrow');
+    const scrollDownArrow = document.querySelector('.scroll-arrow');
+    const sections = document.querySelectorAll('.parallax, .section');
+
+    initializePage();
+    updateArrowsVisibility();
+
+    // Store current index before unload
+    window.addEventListener('beforeunload', () => {
+        sessionStorage.setItem('lastImageIndex', currentImageIndex.toString());
+    });
 });
 
 // Prevent automatic scroll restoration
