@@ -7,6 +7,10 @@ const backgroundImages = [
     'bg-5.webp'
 ];
 
+// Global variables for DOM elements
+let scrollUpArrow;
+let scrollDownArrow;
+let sections;
 let currentImageIndex = -1;
 let isLoadingImage = false;
 
@@ -111,9 +115,10 @@ function initializePage() {
 
 // Consolidated event listeners
 document.addEventListener('DOMContentLoaded', (event) => {
-    const scrollUpArrow = document.querySelector('.scroll-up-arrow');
-    const scrollDownArrow = document.querySelector('.scroll-arrow');
-    const sections = document.querySelectorAll('.parallax, .section');
+    // Initialize global DOM element references
+    scrollUpArrow = document.querySelector('.scroll-up-arrow');
+    scrollDownArrow = document.querySelector('.scroll-arrow');
+    sections = document.querySelectorAll('.parallax, .section');
 
     initializePage();
     updateArrowsVisibility();
