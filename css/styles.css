@@ -236,7 +236,7 @@ html {
     opacity: 0;
     animation: fadeInAndBounce 3s ease-in-out infinite;
     animation-delay: 2.5s;
-    z-index: 2; /* Ensure it's above the overlay */
+    z-index: 2;
 }
 
 @keyframes fadeInAndBounce {
@@ -292,7 +292,8 @@ html {
     .cta { font-size: 1.1rem; }
 }
 
-@media (max-height: 700px), (max-width: 768px) {
+/* Update media query to only hide arrow on very small screens */
+@media (max-height: 400px) {
     .scroll-arrow {
         display: none;
     }
