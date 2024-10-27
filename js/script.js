@@ -8,46 +8,65 @@ const backgroundImages = [
 ];
 
 let currentImageIndex = -1;
-let isLoadingImage = false; // Add a flag to prevent multiple simultaneous loads
+let isLoadingImage = false;
 
 // Function to get a new random index different from the current one
-function getNewRandomIndex(currentIndex, arrayLength) {
+function getNewRandomIndex() {
     const lastUsedIndex = sessionStorage.getItem('lastImageIndex');
-    const previousIndex = lastUsedIndex !== null ? parseInt(lastUsedIndex, 10) : currentIndex;
+    const previousIndex = lastUsedIndex !== null ? parseInt(lastUsedIndex, 10) : -1;
     
     let newIndex;
     do {
-        newIndex = Math.floor(Math.random() * arrayLength);
-    } while (newIndex === previousIndex && arrayLength > 1);
+        newIndex = Math.floor(Math.random() * backgroundImages.length);
+    } while (newIndex === previousIndex && backgroundImages.length > 1);
+    
     return newIndex;
 }
 
-// Function to preload image and set as background only after loading
-function setRandomBackgroundImage() {
-    // Prevent multiple simultaneous loads
-    if (isLoadingImage) return;
-    
+// Function to set background image
+function setBackgroundImage(imagePath) {
     const landingElement = document.getElementById('landing');
-    if (!landingElement || backgroundImages.length === 0) return;
-
-    isLoadingImage = true;
-    
-    const newIndex = getNewRandomIndex(currentImageIndex, backgroundImages.length);
-    const imagePath = `./img/bg-landing/${backgroundImages[newIndex]}`;
-    
-    const img = new Image();
-    img.onload = function() {
+    if (landingElement) {
         landingElement.style.backgroundImage = `url('${imagePath}')`;
+    }
+}
+
+// Function to load and set random background image
+async function setRandomBackgroundImage() {
+    // If already loading an image, don't start another load
+    if (isLoadingImage) {
+        return;
+    }
+
+    try {
+        isLoadingImage = true;
+        
+        const newIndex = getNewRandomIndex();
+        const imagePath = `./img/bg-landing/${backgroundImages[newIndex]}`;
+
+        // Create a promise to load the image
+        const imageLoadPromise = new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => resolve(imagePath);
+            img.onerror = () => reject(new Error(`Failed to load image: ${imagePath}`));
+            img.src = imagePath;
+        });
+
+        // Wait for image to load
+        const loadedImagePath = await imageLoadPromise;
+        
+        // Set the background and update tracking variables
+        setBackgroundImage(loadedImagePath);
         currentImageIndex = newIndex;
         sessionStorage.setItem('lastImageIndex', newIndex.toString());
+
+    } catch (error) {
+        console.error(error);
+        // On error, try to use the first image as fallback
+        setBackgroundImage(`./img/bg-landing/${backgroundImages[0]}`);
+    } finally {
         isLoadingImage = false;
-    };
-    img.onerror = function() {
-        console.error('Failed to load image:', imagePath);
-        landingElement.style.backgroundImage = `url('./img/bg-landing/${backgroundImages[0]}')`;
-        isLoadingImage = false;
-    };
-    img.src = imagePath;
+    }
 }
 
 // Function to scroll to top
