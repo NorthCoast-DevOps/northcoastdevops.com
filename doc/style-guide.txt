@@ -4,30 +4,30 @@ Color Palette
 	•	Usage: Primary background color.
 	•	Description: Clean and neutral, providing a fresh canvas for content.
 	2.	Dark Gray: #424245
-	•	Usage: Primary text color.
-	•	Description: Softer than pure black, offering good readability while reducing eye strain.
+	•	Usage: Primary text color and content.
+	•	Description: Softer than pure black, offering good readability.
 	3.	Almost Black: #1d1d1f
-	•	Usage: Header text color.
-	•	Description: Provides strong contrast for headings, enhancing visual hierarchy.
+	•	Usage: Navigation background (with 0.8 opacity) and header text.
+	•	Description: Strong contrast for navigation and headings.
 	4.	Ocean Blue: #3498db
-	•	Usage: Primary button color and accents.
-	•	Description: Vibrant and engaging, drawing attention to interactive elements.
+	•	Usage: Primary interactive elements.
+	•	Description: Vibrant and engaging color for buttons and interactive elements.
 	5.	Medium Blue: #2980b9
-	•	Usage: Button hover color.
-	•	Description: Slightly darker shade of Ocean Blue, providing visual feedback for user interactions.
-	6.	Light Gray: #ecf0f1
-	•	Usage: Secondary background color (e.g., for feature callouts).
-	•	Description: Subtle contrast from the primary background, useful for highlighting specific content areas.
+	•	Usage: CTA buttons and hover states.
+	•	Description: Slightly darker shade for visual feedback.
+	6.	Secondary Light Gray: #ecf0f1
+	•	Usage: Feature callouts and secondary sections.
+	•	Description: Subtle contrast from primary background.
 	7.	Bright Blue: #00a8ff
-	•	Usage: Link color and hover effects.
-	•	Description: Distinctive color for hyperlinks, ensuring they stand out from regular text.
+	•	Usage: Navigation hover states and links.
+	•	Description: Bright, attention-grabbing accent color.
 
 Style Guide
 
 Backgrounds
 
-	���	Primary Background: #f0f0f0 (Light Gray) – Clean and neutral base for content.
-	•	Secondary Background: #ecf0f1 (Light Gray) – Subtle contrast for feature sections or callouts.
+	•	Primary Background: #f0f0f0 (Light Gray) – Clean and neutral base for content.
+	•	Secondary Background: #ecf0f1 (Secondary Light Gray) – Subtle contrast for feature sections or callouts.
 
 Text Colors
 
