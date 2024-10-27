@@ -90,30 +90,44 @@ html {
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: rgba(128, 128, 128, 0.5); /* #808080 with 50% opacity */
+    background-color: rgba(0, 0, 0, 0.3); /* Changed to black with 30% opacity for a lighter effect */
     z-index: 1;
 }
 
+/* Content Fade In Animation */
 #landing .content {
     position: relative;
-    z-index: 2; /* Ensure content is above the overlay */
+    z-index: 2;
     text-align: center;
-    color: #FFFFFF;
     padding: 20px;
+    animation: fadeIn 1.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px);
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0);
+    }
 }
 
 #landing .content h1 {
     color: #FFFFFF;
-    font-size: 3.5rem; /* Adjust as needed */
+    font-size: 3.5rem;
     font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Optional: adds a subtle shadow for better readability */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Reduced shadow opacity */
+    margin-bottom: 15px;
+    mix-blend-mode: normal; /* Ensures text isn't affected by overlay */
 }
 
 #landing .content p {
     color: #FFFFFF;
-    font-size: 1.5rem; /* Adjust as needed */
-    margin-top: 10px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Optional: adds a subtle shadow for better readability */
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Reduced shadow opacity */
+    mix-blend-mode: normal; /* Ensures text isn't affected by overlay */
 }
 
 .section {
@@ -207,6 +221,7 @@ html {
     background-color: var(--ocean-blue);
 }
 
+/* Down Arrow Animation */
 .scroll-arrow {
     position: absolute;
     bottom: 30px;
@@ -217,15 +232,26 @@ html {
     border-left: 0;
     border-top: 0;
     transform: translateX(-50%) rotate(45deg);
+    cursor: pointer;
     opacity: 0;
     animation: fadeInAndBounce 3s ease-in-out infinite;
     animation-delay: 2.5s;
+    z-index: 2; /* Ensure it's above the overlay */
 }
 
 @keyframes fadeInAndBounce {
-    0% { opacity: 0; transform: translateX(-50%) translateY(-20px) rotate(45deg); }
-    50% { opacity: 1; transform: translateX(-50%) translateY(0) rotate(45deg); }
-    100% { opacity: 0; transform: translateX(-50%) translateY(20px) rotate(45deg); }
+    0% { 
+        opacity: 0; 
+        transform: translateX(-50%) translateY(-20px) rotate(45deg); 
+    }
+    50% { 
+        opacity: 1; 
+        transform: translateX(-50%) translateY(0) rotate(45deg); 
+    }
+    100% { 
+        opacity: 0; 
+        transform: translateX(-50%) translateY(20px) rotate(45deg); 
+    }
 }
 
 .scroll-up-arrow {
@@ -267,7 +293,9 @@ html {
 }
 
 @media (max-height: 700px), (max-width: 768px) {
-    .scroll-arrow { display: none; }
+    .scroll-arrow {
+        display: none;
+    }
 }
 
 a {
