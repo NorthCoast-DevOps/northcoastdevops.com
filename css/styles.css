@@ -212,19 +212,29 @@ html {
     color: var(--dark-gray);
 }
 
-.cta {
+.cta-container {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.cta-button {
     background-color: var(--ocean-blue);
     color: #FFFFFF;
     padding: 12px 24px;
     border-radius: 6px;
     font-size: 1.1rem;
+    font-weight: 500;
     text-decoration: none;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    display: inline-block;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.cta:hover {
+.cta-button:hover {
     background-color: var(--medium-blue);
     text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Down Arrow Animation */
