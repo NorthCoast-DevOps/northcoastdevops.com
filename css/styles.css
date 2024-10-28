@@ -569,3 +569,9 @@ a:hover {
         margin-bottom: 30px;
     }
 }
+
+.cta-button, .cta {
+    cursor: pointer;
+    text-decoration: none;
+    /* existing styles */
+}
