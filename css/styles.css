@@ -641,11 +641,28 @@ a:hover {
 }
 
 .phone-icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
-    /* Icon will inherit the color of its parent (.call-now) */
+    width: 16px;
+    height: 16px;
+    margin-left: 6px;
     fill: currentColor;
+    cursor: pointer;
+    position: relative;
+}
+
+.phone-icon:hover::after {
+    content: "Call from your browser";
+    position: absolute;
+    background-color: var(--almost-black);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -30px;
+    pointer-events: none;
+    z-index: 1000;
 }
 
 .email-link {
