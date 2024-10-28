@@ -471,3 +471,101 @@ a:hover {
         font-size: 1.2rem;
     }
 }
+
+/* Replace the .services-lead class with this new styling */
+.services-network-intro {
+    max-width: 900px;
+    margin: 40px auto 60px;
+    text-align: center;
+    font-size: 1.5rem; /* Increased from 1.3rem */
+    line-height: 1.8; /* Increased from 1.6 */
+    color: var(--dark-gray);
+    opacity: 0.85; /* Slightly lighter shade */
+    font-weight: 300; /* Light weight */
+    font-style: italic; /* Added italic */
+    letter-spacing: 0.03em; /* Increased letter spacing */
+    padding: 0 30px;
+    position: relative;
+    background: linear-gradient(to bottom, var(--dark-gray), var(--almost-black));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Update decorative elements */
+.services-network-intro::before,
+.services-network-intro::after {
+    content: '';
+    display: block;
+    width: 60px; /* Increased from 40px */
+    height: 1px; /* Thinner line */
+    background: var(--ocean-blue);
+    margin: 25px auto; /* Increased margin */
+    opacity: 0.7; /* Subtle lines */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .services-network-intro {
+        font-size: 1.25rem; /* Increased from 1.15rem */
+        margin: 25px auto 45px;
+        line-height: 1.7;
+        padding: 0 25px;
+    }
+    
+    .services-network-intro::before,
+    .services-network-intro::after {
+        width: 40px;
+        margin: 20px auto;
+    }
+}
+
+/* Update the services network callout styling */
+.services-network-callout {
+    max-width: 900px;
+    margin: 60px auto 40px; /* Adjusted margins to work better at bottom */
+    background-color: var(--secondary-light-gray);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 35px 40px;
+}
+
+.services-network-callout p {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: var(--dark-gray);
+    text-align: center;
+    margin: 0;
+    font-weight: 300;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .services-network-callout {
+        margin: 40px 20px 30px;
+        padding: 25px 20px;
+    }
+    
+    .services-network-callout p {
+        font-size: 1.15rem;
+        line-height: 1.5;
+    }
+}
+
+/* Add styling for the services intro text */
+.services-intro {
+    max-width: 900px;
+    margin: 0 auto 40px;
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--dark-gray);
+    padding: 0 20px;
+}
+
+@media (max-width: 768px) {
+    .services-intro {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+    }
+}
