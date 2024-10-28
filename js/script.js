@@ -161,3 +161,47 @@ document.addEventListener('DOMContentLoaded', (event) => {
 if (history.scrollRestoration) {
     history.scrollRestoration = 'manual';
 }
+
+function sendEmail(event) {
+    event.preventDefault();
+
+    const form = document.getElementById('contact-form');
+    const formData = new FormData(form);
+
+    // Prepare the data to send
+    const data = {
+        from_name: formData.get('name'),
+        from_email: formData.get('email'),
+        phone: formData.get('phone'),
+        message: formData.get('message')
+    };
+
+    // Send the email using EmailJS
+    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", data)
+    .then((result) => {
+        console.log('Email sent successfully:', result.text);
+        showSuccessMessage();
+        form.reset();
+    }, (error) => {
+        console.error('Error sending email:', error.text);
+        alert('Failed to send message. Please try again later.');
+    });
+}
+
+function showSuccessMessage() {
+    const form = document.getElementById('contact-form');
+    const successMessage = document.createElement('div');
+    successMessage.className = 'success-message';
+    successMessage.innerHTML = `
+        <h4>Thank You!</h4>
+        <p>Your inquiry has been submitted successfully.</p>
+        <p>We will review your request and get back to you shortly via email or phone.</p>
+    `;
+    
+    // Replace form with success message
+    form.style.opacity = '0';
+    setTimeout(() => {
+        form.parentNode.replaceChild(successMessage, form);
+        successMessage.style.opacity = '1';
+    }, 300);
+}
