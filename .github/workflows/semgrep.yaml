@@ -62,13 +62,13 @@ jobs:
     - name: Run Semgrep scan
       run: |
         source venv/bin/activate
-        semgrep --config=p/ci --json --output=semgrep-results.json
+        semgrep --config=p/ci --sarif --output=semgrep-results.sarif
       shell: bash
 
     - name: Generate summary report
       run: |
         echo "## Semgrep Scan Summary" >> $GITHUB_STEP_SUMMARY
-        semgrep_results=$(jq '.results | length' semgrep-results.json)
+        semgrep_results=$(jq '.results | length' semgrep-results.sarif)
         echo "Total Issues Found: $semgrep_results" >> $GITHUB_STEP_SUMMARY
       shell: bash
 
@@ -76,9 +76,11 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: semgrep-results
-        path: semgrep-results.json
+        path: semgrep-results.sarif
 
     - name: Upload results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v2
+      uses: github/codeql-action/upload-sarif@v3  # Updated to v3
       with:
-        sarif_file: semgrep-results.json
+        sarif_file: semgrep-results.sarif
+      env:  # Ensures the action has access to the necessary resources
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
