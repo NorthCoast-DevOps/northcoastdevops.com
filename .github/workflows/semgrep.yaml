@@ -1,0 +1,68 @@
+# .github/workflows/semgrep-scan-latest-release.yml
+name: Weekly Semgrep Security Scan on Latest Release
+
+on:
+  schedule:
+    - cron: '0 7 * * 0'  # Runs at 7am UTC every Sunday
+  workflow_dispatch:  # Enables manual run from the Actions tab
+
+jobs:
+  semgrep_scan:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Fetch latest release tag
+      id: get_latest_release
+      run: |
+        latest_release=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r '.tag_name')
+        echo "latest_release=$latest_release" >> $GITHUB_ENV
+
+    - name: Checkout latest release
+      uses: actions/checkout@v4  # Using the latest version
+      with:
+        ref: ${{ env.latest_release }}  # Check out the latest release tag
+
+    - name: Set up Python virtual environment
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+      shell: bash
+
+    - name: Cache Semgrep
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install Semgrep
+      run: |
+        source venv/bin/activate
+        pip install --upgrade semgrep  # Ensures the latest version is installed
+      shell: bash
+
+    - name: Run Semgrep scan
+      run: |
+        source venv/bin/activate
+        semgrep --config=p/ci --json --output=semgrep-results.json
+      shell: bash
+
+    - name: Generate summary report
+      run: |
+        echo "## Semgrep Scan Summary" >> $GITHUB_STEP_SUMMARY
+        semgrep_results=$(jq '.results | length' semgrep-results.json)
+        echo "Total Issues Found: $semgrep_results" >> $GITHUB_STEP_SUMMARY
+      shell: bash
+
+    - name: Upload Semgrep results as artifact
+      uses: actions/upload-artifact@v3  # Using the latest version
+      with:
+        name: semgrep-results
+        path: semgrep-results.json
+
+    - name: Upload results to GitHub Security tab
+      if: always()
+      uses: github/codeql-action/upload-sarif@v2  # Using the latest version
+      with:
+        sarif_file: semgrep-results.json
