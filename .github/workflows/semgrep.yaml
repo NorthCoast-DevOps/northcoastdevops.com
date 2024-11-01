@@ -11,16 +11,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Fetch latest release tag
+    - name: Determine latest release or fallback to main or master
       id: get_latest_release
       run: |
         latest_release=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r '.tag_name')
+        
+        # Check if latest release exists
+        if [[ "$latest_release" == "null" ]]; then
+          echo "No release found. Checking for main branch."
+          
+          # Check if main branch exists
+          if git ls-remote --heads origin main &>/dev/null; then
+            latest_release="main"
+          elif git ls-remote --heads origin master &>/dev/null; then
+            # If main doesn't exist, fallback to master
+            echo "No main branch found. Defaulting to master branch."
+            latest_release="master"
+          else
+            echo "No release, main, or master branch found. Exiting..."
+            exit 1
+          fi
+        fi
+        
         echo "latest_release=$latest_release" >> $GITHUB_ENV
 
-    - name: Checkout latest release
-      uses: actions/checkout@v4  # Using the latest version
+    - name: Checkout code
+      uses: actions/checkout@v4
       with:
-        ref: ${{ env.latest_release }}  # Check out the latest release tag
+        ref: ${{ env.latest_release }}
 
     - name: Set up Python virtual environment
       run: |
@@ -39,7 +57,7 @@ jobs:
     - name: Install Semgrep
       run: |
         source venv/bin/activate
-        pip install --upgrade semgrep  # Ensures the latest version is installed
+        pip install --upgrade semgrep
       shell: bash
 
     - name: Run Semgrep scan
@@ -50,19 +68,4 @@ jobs:
 
     - name: Generate summary report
       run: |
-        echo "## Semgrep Scan Summary" >> $GITHUB_STEP_SUMMARY
-        semgrep_results=$(jq '.results | length' semgrep-results.json)
-        echo "Total Issues Found: $semgrep_results" >> $GITHUB_STEP_SUMMARY
-      shell: bash
-
-    - name: Upload Semgrep results as artifact
-      uses: actions/upload-artifact@v3  # Using the latest version
-      with:
-        name: semgrep-results
-        path: semgrep-results.json
-
-    - name: Upload results to GitHub Security tab
-      if: always()
-      uses: github/codeql-action/upload-sarif@v2  # Using the latest version
-      with:
-        sarif_file: semgrep-results.json
+        echo "## Semgrep Scan Summary" >> $GITHUB_STEP_SUM
