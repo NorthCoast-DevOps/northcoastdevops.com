@@ -13,6 +13,7 @@ let scrollDownArrow;
 let sections;
 let currentImageIndex = -1;
 let isLoadingImage = false;
+let titleUpdateTimeout;
 
 // Function to get a new random index different from the current one
 function getNewRandomIndex() {
@@ -86,6 +87,16 @@ function updateArrowsVisibility() {
     let scrollPosition = window.pageYOffset;
     let windowHeight = window.innerHeight;
     let currentSectionIndex = Math.floor(scrollPosition / windowHeight);
+
+    // Update page title with debounce
+    clearTimeout(titleUpdateTimeout);
+    titleUpdateTimeout = setTimeout(() => {
+        const currentSection = sections[currentSectionIndex];
+        if (currentSection) {
+            const sectionId = currentSection.id;
+            updatePageTitle(sectionId);
+        }
+    }, 100); // Wait 100ms after scrolling stops
 
     // Show down arrow when there's a next frame
     if (currentSectionIndex < sections.length - 1) {
@@ -204,4 +215,29 @@ function showSuccessMessage() {
         form.parentNode.replaceChild(successMessage, form);
         successMessage.style.opacity = '1';
     }, 300);
+}
+
+// Add this new function to update the page title
+function updatePageTitle(currentSection) {
+    const baseName = "NorthCoast DevOps";
+    let newTitle;
+    
+    switch(currentSection) {
+        case 'home':
+            newTitle = baseName;
+            break;
+        case 'about':
+            newTitle = `About | ${baseName}`;
+            break;
+        case 'services':
+            newTitle = `Services | ${baseName}`;
+            break;
+        case 'contact':
+            newTitle = `Contact | ${baseName}`;
+            break;
+        default:
+            newTitle = baseName;
+    }
+    
+    document.title = newTitle;
 }
