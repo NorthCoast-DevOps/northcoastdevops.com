@@ -88,15 +88,16 @@ function updateArrowsVisibility() {
     let windowHeight = window.innerHeight;
     let currentSectionIndex = Math.floor(scrollPosition / windowHeight);
 
-    // Update page title with debounce
+    // Update page title and GA with debounce
     clearTimeout(titleUpdateTimeout);
     titleUpdateTimeout = setTimeout(() => {
         const currentSection = sections[currentSectionIndex];
         if (currentSection) {
             const sectionId = currentSection.id;
             updatePageTitle(sectionId);
+            sendGAPageView(sectionId);
         }
-    }, 100); // Wait 100ms after scrolling stops
+    }, 100);
 
     // Show down arrow when there's a next frame
     if (currentSectionIndex < sections.length - 1) {
@@ -240,4 +241,23 @@ function updatePageTitle(currentSection) {
     }
     
     document.title = newTitle;
+}
+
+// Add this function to handle GA pageview events
+function sendGAPageView(sectionId) {
+    // For GA4
+    gtag('event', 'page_view', {
+        page_title: document.title,
+        page_location: `${window.location.origin}/#${sectionId}`,
+        page_path: `/#${sectionId}`,
+        // Optional additional parameters
+        send_to: 'G-S4DQ76FZQE',  // Your GA4 measurement ID
+        user_engagement: true
+    });
+
+    // Optional: Send a separate section_view event
+    gtag('event', 'section_view', {
+        section_name: sectionId,
+        time_stamp: new Date().toISOString()
+    });
 }
