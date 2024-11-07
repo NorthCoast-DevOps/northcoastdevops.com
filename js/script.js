@@ -78,7 +78,6 @@ async function setRandomBackgroundImage() {
 function scrollToTop() {
     window.scrollTo(0, 0);
 }
-
 // Function to update arrows visibility
 function updateArrowsVisibility() {
     // Only proceed if DOM elements are initialized
@@ -138,6 +137,7 @@ function initializePage() {
 
 // Consolidated event listeners
 document.addEventListener('DOMContentLoaded', (event) => {
+    initializeDarkMode();
     initializePage();
 
     // Add scroll event listener for arrow visibility
@@ -259,5 +259,75 @@ function sendGAPageView(sectionId) {
     gtag('event', 'section_view', {
         section_name: sectionId,
         time_stamp: new Date().toISOString()
+    });
+}
+// keyboard navigation
+document.addEventListener('keydown', (e) => {
+    let currentSectionIndex = Math.floor(window.pageYOffset / window.innerHeight);
+    
+    if (e.key === 'ArrowDown' && currentSectionIndex < sections.length - 1) {
+        sections[currentSectionIndex + 1].scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'ArrowUp' && currentSectionIndex > 0) {
+        sections[currentSectionIndex - 1].scrollIntoView({ behavior: 'smooth' });
+    }
+});// form validation
+function validateForm(formData) {
+    const email = formData.get('email');
+    const phone = formData.get('phone');
+    
+    if (phone && !/^\+?[\d\s-()]{10,}$/.test(phone)) {
+        throw new Error('Please enter a valid phone number');
+    }
+    
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        throw new Error('Please enter a valid email address');
+    }
+}
+// section indicator
+function updateSectionIndicator() {
+    const dots = document.querySelectorAll('.section-dot');
+    let scrollPosition = window.pageYOffset;
+    let windowHeight = window.innerHeight;
+    let currentSectionIndex = Math.floor(scrollPosition / windowHeight);
+
+    dots.forEach((dot, index) => {
+        if (index === currentSectionIndex) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+// Add this to your existing scroll event listener
+window.addEventListener('scroll', () => {
+    updateArrowsVisibility();
+    updateSectionIndicator();
+});
+
+// Add click handlers for the dots
+document.querySelectorAll('.section-dot').forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        sections[index].scrollIntoView({ behavior: 'smooth' });
+    });
+});
+// toggle dark mode
+function initializeDarkMode() {
+    const toggle = document.querySelector('.dark-mode-toggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const storedTheme = localStorage.getItem('theme');
+
+    // Set initial state
+    if (storedTheme === 'dark' || (!storedTheme && prefersDark.matches)) {
+        document.documentElement.classList.add('dark-mode');
+        toggle.classList.add('dark');
+    }
+
+    toggle.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark-mode');
+        toggle.classList.toggle('dark');
+        
+        const isDark = document.documentElement.classList.contains('dark-mode');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
     });
 }

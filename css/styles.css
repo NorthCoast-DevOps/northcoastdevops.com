@@ -755,3 +755,192 @@ a:hover {
         transform: translateY(0);
     }
 }
+
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--bright-blue);
+    z-index: 2000;
+    transition: width 0.3s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --light-gray: #1a1a1a;
+        --dark-gray: #e0e0e0;
+        --almost-black: #f5f5f7;
+        --secondary-light-gray: #2d2d2d;
+    }
+    
+    /* Card backgrounds */
+    .service-category,
+    .card,
+    .about-item {
+        background-color: #242424;
+    }
+
+    /* All headings */
+    .service-category h3,
+    .card h3,
+    .about-item h3,
+    .feature-callout h3,
+    .section h2 {
+        color: #f5f5f7;
+    }
+
+    /* All regular text */
+    .service-intro,
+    .service-category ul,
+    .service-outro,
+    .card p,
+    .about-item p,
+    .feature-callout p,
+    .lead,
+    .services-intro,
+    .services-subtitle,
+    .services-network-intro,
+    .services-network-callout p,
+    .contact-intro,
+    .company-details address,
+    .form-group label {
+        color: #e0e0e0;
+    }
+
+    /* Form elements */
+    .form-group input,
+    .form-group textarea {
+        background-color: #333333;
+        border-color: #4a4a4a;
+        color: #e0e0e0;
+    }
+
+    /* Feature callout background */
+    .feature-callout {
+        background-color: #2d2d2d;
+    }
+
+    /* Gradient text adjustments */
+    .services-network-intro {
+        background: linear-gradient(to bottom, #f5f5f7, #e0e0e0);
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+
+    /* Success message */
+    .success-message {
+        background-color: #242424;
+    }
+    
+    .success-message h4 {
+        color: #f5f5f7;
+    }
+    
+    .success-message p {
+        color: #e0e0e0;
+    }
+}
+/* section indicator */
+.section-indicator {
+    position: fixed;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 1000;
+    padding: 6px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+}
+
+.section-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.section-dot:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.section-dot.active {
+    background: var(--bright-blue);
+    transform: scale(1.2);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+    .section-indicator {
+        right: 8px;
+        gap: 6px;
+    }
+    
+    .section-dot {
+        width: 5px;
+        height: 5px;
+    }
+}
+
+.dark-mode-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: rgba(29, 29, 31, 0.8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.dark-mode-toggle:hover {
+    transform: scale(1.1);
+    background: rgba(29, 29, 31, 0.9);
+}
+
+.dark-mode-toggle svg {
+    width: 20px;
+    height: 20px;
+    fill: #fff;
+    transition: transform 0.3s ease;
+}
+
+.dark-mode-toggle.dark svg {
+    transform: rotate(360deg);
+}
+
+/* Replace the existing dark mode media query */
+:root.dark-mode {
+    --light-gray: #1a1a1a;
+    --dark-gray: #e0e0e0;
+    --almost-black: #f5f5f7;
+    --secondary-light-gray: #2d2d2d;
+}
+
+.dark-mode .service-category,
+.dark-mode .card,
+.dark-mode .about-item {
+    background-color: #242424;
+}
+
+.dark-mode .service-category h3,
+.dark-mode .about-item h3,
+.dark-mode .feature-callout h3,
+.dark-mode .section h2 {
+    color: #f5f5f7;
+}

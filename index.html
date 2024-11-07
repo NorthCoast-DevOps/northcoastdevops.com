@@ -38,8 +38,12 @@
         </ul>
     </nav>
 
-    <!-- Add this just after the .top-menu div -->
-    <div class="scroll-up-arrow"></div>
+    <div class="section-indicator">
+        <div class="section-dot" data-section="home"></div>
+        <div class="section-dot" data-section="about"></div>
+        <div class="section-dot" data-section="services"></div>
+        <div class="section-dot" data-section="contact"></div>
+    </div>
 
     <div class="parallax" id="home">
         <div id="landing">
@@ -300,5 +304,11 @@
             document.body.classList.add('loaded');
         });
     </script>
+
+    <div class="dark-mode-toggle" aria-label="Toggle dark mode">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75.75zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75z"/>
+        </svg>
+    </div>
 </body>
 </html>
